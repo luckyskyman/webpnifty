@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFileStore, FileState } from '@/store/useFileStore';
+import { useFileStore } from '@/store/useFileStore'; // Removed FileState
 import { useImageConverter, ConversionOptions } from '@/hooks/useImageConverter';
 
 import { Button } from '@/components/ui/button';
@@ -31,7 +31,7 @@ export const EditStep = () => {
 
   const [options, setOptions] = useState<Omit<ConversionOptions, 'format'> & { format: string }>(PRESETS.default);
 
-  const handleOptionsChange = (key: keyof typeof options, value: any) => {
+  const handleOptionsChange = (key: keyof typeof options, value: string | number | boolean) => {
     setOptions(prev => ({ ...prev, [key]: value }));
   };
 

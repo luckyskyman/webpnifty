@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDropzone, FileRejection, Accept } from 'react-dropzone';
 import { motion } from 'framer-motion';
-import { UploadCloud, FileImage } from 'lucide-react';
+import { UploadCloud } from 'lucide-react'; // Removed FileImage
 
 import { useFileStore } from '@/store/useFileStore';
 import { Card, CardContent } from '@/components/ui/card';

@@ -28,5 +28,6 @@
 
 # Custom ignores
 /docs/token.txt
+/docs/build*.txt
 /error/*.jpg
 /error/*.png

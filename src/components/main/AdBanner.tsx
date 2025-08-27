@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react';
 
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 interface AdBannerProps {
   adSlot: string;
   adFormat?: string;
@@ -11,7 +17,7 @@ interface AdBannerProps {
 export const AdBanner = ({ adSlot, adFormat = 'auto', adLayoutKey = '' }: AdBannerProps) => {
   useEffect(() => {
     try {
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
       console.error('AdSense error:', err);
     }
