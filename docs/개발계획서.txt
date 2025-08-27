@@ -1,0 +1,114 @@
+
+
+## 🚀 최종 개발 계획서 프롬프트: 수익 극대화 이미지 변환기 "WebPnifty"
+
+### **1. 프로젝트 개요 및 목표**
+
+  * **프로젝트명:** WebPnifty
+  * **한 줄 요약:** 뛰어난 사용자 경험을 통해 광고 수익을 극대화하는 클라이언트 사이드 기반의 차세대 이미지 변환 웹 애플리케이션.
+  * **핵심 목표:** 사용자의 재방문을 유도하는 직관적이고 세련된 UI를 구축하고, 전략적인 광고 배치를 통해 안정적인 수익 모델을 확립한다.
+  * **타겟 플랫폼:** **Vercel**. 개발 및 테스트는 \*\*Hobby 플랜(무료)\*\*으로 진행하며, 광고 수익 창출이 포함된 정식 서비스 론칭 시점에는 상업적 이용이 허용되는 \*\*Pro 플랜(유료, 월 $20/사용자)\*\*으로 전환한다.
+
+### **2. 기술 스택 및 라이브러리**
+
+  * **프레임워크:** **Next.js** (App Router 방식)
+  * **언어:** **TypeScript**
+  * **UI 및 스타일링:** **Tailwind CSS** + **Shadcn/UI**
+  * **상태 관리:** **Zustand** (가볍고 직관적인 상태 관리)
+  * **애니메이션:** **Framer Motion**
+  * **아이콘:** **Lucide React**
+  * **이미지 처리:** **browser-image-compression**
+
+### **3. 핵심 아키텍처: 3-Step User Journey**
+
+사용자 동선을 `업로드` → `설정 및 변환` → `결과 확인 및 공유`의 3단계로 명확히 분리하여 체류 시간을 늘리고, 각 단계 전환 시점을 활용해 광고 수익 기회를 창출한다.
+
+-----
+
+### **4. 개발 단계별 상세 계획 (Roadmap)**
+
+#### **Phase 1: 프로젝트 환경설정 및 UI 레이아웃 구축 (1주차)**
+
+1.  **프로젝트 초기화 (Vercel & Next.js)**
+
+      * 터미널에서 다음 명령어를 실행하여 TypeScript, Tailwind CSS, App Router가 포함된 Next.js 프로젝트를 생성합니다.
+        ```bash
+        npx create-next-app@latest webpifty --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+        ```
+
+2.  **UI 라이브러리 통합 (Shadcn/UI)**
+
+      * Shadcn/UI를 초기화하여 UI 컴포넌트의 기반을 마련합니다.
+        ```bash
+        npx shadcn-ui@latest init
+        ```
+      * 프로젝트에 필요한 기본 컴포넌트(Button, Slider, Card, Input, Progress)를 미리 추가합니다.
+        ```bash
+        npx shadcn-ui@latest add button slider card input progress
+        ```
+
+3.  **핵심 페이지 및 라우팅 설정**
+
+      * `app/` 디렉토리에 3단계 여정을 위한 기본 페이지 구조를 생성합니다. 상태 관리를 위해 단일 페이지 내에서 컴포넌트를 동적으로 렌더링하는 방식을 사용합니다.
+      * `app/page.tsx`: 메인 페이지 파일. `Zustand`를 사용하여 현재 단계를 (e.g., `'upload'`, `'edit'`, `'result'`) 관리하고, 해당 상태에 맞는 컴포넌트를 조건부 렌더링합니다.
+
+4.  **애니메이션 및 아이콘 라이브러리 설치**
+
+    ```bash
+    npm install framer-motion lucide-react
+    ```
+
+#### **Phase 2: 핵심 기능 구현 및 UI-로직 연동 (2-3주차)**
+
+1.  **이미지 처리 로직 구현 (`useImageConverter.ts`)**
+
+      * `browser-image-compression` 라이브러리를 설치합니다.
+        ```bash
+        npm install browser-image-compression
+        ```
+      * 이미지 파일 객체와 옵션(품질, 해상도 등)을 인자로 받아 WebP로 변환된 파일 객체를 반환하는 커스텀 훅(`useImageConverter`)을 작성합니다. 이 훅은 변환 진행 상태, 원본/결과물 크기, 압축률 등의 상태도 함께 관리합니다.
+
+2.  **컴포넌트 개발 및 기능 연동**
+
+      * **`UploadStep.tsx` 컴포넌트:**
+          * 파일 드래그 앤 드롭 및 클릭 업로드 기능 구현.
+          * `Framer Motion`을 사용하여 파일 드래그 시 부드러운 시각적 피드백 제공.
+          * 업로드 성공 시 `Zustand` 스토어의 상태를 `'edit'`으로 변경하고 원본 이미지 정보를 저장.
+      * **`EditStep.tsx` 컴포넌트:**
+          * Shadcn/UI의 `Slider`와 `Input`을 사용하여 품질, 해상도 조절 UI 구현.
+          * 옵션이 변경될 때마다 `useImageConverter` 훅을 호출하여 실시간으로 예상 결과(압축률, 파일 크기)를 표시.
+          * '변환하기' 버튼 클릭 시 변환 로직을 실행하고, `Progress` 컴포넌트로 진행 상태를 보여준 뒤 상태를 `'result'`로 변경.
+      * **`ResultStep.tsx` 컴포넌트:**
+          * 변환 결과(절약된 용량, 로딩 속도 개선 효과 등)를 시각적으로 보여주는 대시보드 구현.
+          * 변환된 이미지 다운로드 및 `다른 이미지 변환하기`(상태를 `'upload'`로 초기화) 기능 구현.
+
+#### **Phase 3: 수익화 연동 및 SEO 최적화 (4주차)**
+
+1.  **Google AdSense 연동**
+
+      * `app/layout.tsx`의 `<head>` 태그 내에 Next.js의 `Script` 컴포넌트를 사용하여 AdSense 스크립트를 추가합니다.
+      * `public/` 디렉토리에 `ads.txt` 파일을 추가합니다.
+
+2.  **전략적 광고 컴포넌트 생성 (`AdBanner.tsx`)**
+
+      * 각 광고 슬롯(상단 배너, 인피드, 결과 페이지 등)에 맞는 광고 단위 코드를 포함하는 재사용 가능한 `AdBanner` 컴포넌트를 생성합니다.
+      * 계획에 따라 각 페이지(컴포넌트)의 지정된 위치에 `AdBanner` 컴포넌트를 배치합니다.
+
+3.  **기본 SEO 설정**
+
+      * `app/layout.tsx`에 `metadata` 객체를 사용하여 기본 제목, 설명, 키워드 등 SEO 관련 정보를 설정합니다. 동적 페이지를 위해 `generateMetadata` 함수 사용법을 숙지합니다.
+
+#### **Phase 4: 배포 및 최종 최적화 (5주차)**
+
+1.  **Vercel 배포**
+
+      * 프로젝트를 GitHub 레포지토리에 푸시합니다.
+      * Vercel에 가입하고 해당 GitHub 레포지토리를 임포트하여 프로젝트를 배포합니다.
+
+2.  **상용화 준비 (Pro 플랜 전환)**
+
+      * Vercel 대시보드에서 프로젝트의 플랜을 **Pro로 업그레이드**하여 상업적 이용 및 광고 게재에 대한 라이선스를 확보합니다.
+
+3.  **분석 및 모니터링**
+
+      * `@vercel/analytics`를 설치하여 사용자 방문 및 행동 데이터를 수집하고, Vercel 대시보드에서 성능을 모니터링하며 지속적으로 개선합니다.
