@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { useFileStore } from '@/store/useFileStore'; // Removed FileState
+import { useState, useMemo } from 'react';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useFileStore } from '@/store/useFileStore';
 import { useImageConverter, ConversionOptions } from '@/hooks/useImageConverter';
 
 import { Button } from '@/components/ui/button';
@@ -9,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FileImage, Settings, Zap } from 'lucide-react';
+import { FileImage, Settings, Zap, Star } from 'lucide-react';
 
 const PRESETS = {
   default: { quality: 0.8, format: 'image/webp', maxWidthOrHeight: 1920, keepExif: false },
@@ -21,8 +23,11 @@ export const EditStep = () => {
   const { files, setConvertedFile, setFileError, setStep, updateFileProgress } = useFileStore();
   const { convertImage } = useImageConverter();
   const [isConverting, setIsConverting] = useState(false);
+  const { status } = useSession();
 
-  // Batch conversion progress calculation
+  const isLoggedIn = useMemo(() => status === 'authenticated', [status]);
+  const maxQuality = useMemo(() => isLoggedIn ? 1.0 : 0.8, [isLoggedIn]);
+
   const progress = useFileStore(state => {
     if (state.files.length === 0) return 0;
     const totalProgress = state.files.reduce((acc, f) => acc + f.progress, 0);
@@ -36,14 +41,21 @@ export const EditStep = () => {
   };
 
   const applyPreset = (preset: keyof typeof PRESETS) => {
-    setOptions(PRESETS[preset]);
+    const presetOptions = PRESETS[preset];
+    // Clamp the quality to maxQuality if the preset's quality is higher
+    const clampedQuality = Math.min(presetOptions.quality, maxQuality);
+    setOptions({ ...presetOptions, quality: clampedQuality });
   };
 
   const handleConvert = async () => {
     setIsConverting(true);
     try {
+      // Enforce quality limit for non-logged-in users at the time of conversion
+      const finalQuality = Math.min(options.quality, maxQuality);
+
       const conversionOptions: ConversionOptions = {
         ...options,
+        quality: finalQuality,
         format: options.format as 'image/webp' | 'image/avif',
       };
 
@@ -106,11 +118,19 @@ export const EditStep = () => {
             {/* Options */}
             <div className="space-y-4">
               <div>
-                <Label htmlFor="quality">Quality: {Math.round(options.quality * 100)}</Label>
-                <Slider id="quality" value={[options.quality]} onValueChange={([v]) => handleOptionsChange('quality', v)} max={1} step={0.01} />
+                <div className="flex justify-between items-center mb-2">
+                  <Label htmlFor="quality">Quality: {Math.round(options.quality * 100)}</Label>
+                  {!isLoggedIn && (
+                    <span className="text-xs text-primary font-semibold flex items-center">
+                      <Star className="w-3 h-3 mr-1" />
+                      <Link href="/login">Sign in</Link> for 100% quality
+                    </span>
+                  )}
+                </div>
+                <Slider id="quality" value={[options.quality]} onValueChange={([v]) => handleOptionsChange('quality', v)} min={0.01} max={maxQuality} step={0.01} />
               </div>
               <div>
-                <Label htmlFor="format">Format</Label>
+                <Label htmlFor="format" className="block mb-2">Format</Label>
                 <Select value={options.format} onValueChange={(v) => handleOptionsChange('format', v)}>
                   <SelectTrigger id="format"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -120,7 +140,7 @@ export const EditStep = () => {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="resolution">Max Resolution</Label>
+                <Label htmlFor="resolution" className="block mb-2">Max Resolution</Label>
                 <Input id="resolution" type="number" value={options.maxWidthOrHeight} onChange={(e) => handleOptionsChange('maxWidthOrHeight', parseInt(e.target.value, 10))} />
               </div>
               <div className="flex items-center space-x-2">

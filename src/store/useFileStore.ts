@@ -38,7 +38,7 @@ export const useFileStore = create<FileStoreState>((set) => ({
       progress: 0,
       error: null,
     }));
-    set({ files: fileStates, step: 'edit' });
+    set({ files: fileStates });
   },
 
   updateFileProgress: (id, progress) => {

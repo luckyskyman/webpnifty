@@ -28,6 +28,7 @@ export const useImageConverter = () => {
 
     try {
       console.log(`Starting conversion for ${file.name} with options:`, options);
+      console.log(`Initial quality passed to browser-image-compression:`, compressionOptions.initialQuality); // <-- ADDED LINE
       const compressedFile = await imageCompression(file, compressionOptions);
       console.log(`Finished conversion for ${file.name}. Original size: ${file.size}, New size: ${compressedFile.size}`);
 

@@ -8,6 +8,7 @@ import { AdBanner } from '@/components/main/AdBanner';
 import { Image as ImageIcon } from 'lucide-react';
 import { useSession, signIn, signOut } from 'next-auth/react'; // Import NextAuth.js hooks and functions
 import { Button } from '@/components/ui/button'; // Import Button component
+import Link from 'next/link';
 
 const StepRenderer = ({ step }: { step: AppStep }) => {
   switch (step) {
@@ -50,9 +51,17 @@ export default function HomePage() {
       </div>
 
       <footer className="w-full max-w-4xl mx-auto mt-8 text-center text-muted-foreground text-sm">
-        {/* Placeholder for Ad Banner */}
-        <AdBanner adSlot="0000000000" /> {/* TODO: Replace with your AdSense ad slot ID */}
-        <p className="mt-4">&copy; {new Date().getFullYear()} WebPnifty. All rights reserved.</p>
+        {/* Conditionally render Ad Banner for non-authenticated users */}
+        {status !== 'authenticated' && <AdBanner adSlot="0000000000" />} {/* TODO: Replace with your AdSense ad slot ID */}
+        <div className="mt-4 space-x-2">
+          <Link href="/what-is-webp" className="hover:underline">What is WebP?</Link>
+          <span>&bull;</span>
+          <Link href="/webp-vs-jpeg" className="hover:underline">WebP vs. JPEG</Link>
+          <span>&bull;</span>
+          <Link href="/how-to-use-webp" className="hover:underline">How to Use WebP</Link>
+          <span>&bull;</span>
+          <span>&copy; {new Date().getFullYear()} WebPnifty. All rights reserved.</span>
+        </div>
       </footer>
     </main>
   );

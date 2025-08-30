@@ -1,8 +1,9 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link'; // Import Link
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,13 +23,12 @@ export default function LoginPage() {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const username = formData.get('username') as string;
+    const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    // For now, we'll use a simple credentials login. Later, we can add providers.
     const result = await signIn('credentials', {
       redirect: false,
-      username,
+      email,
       password,
     });
 
@@ -49,22 +49,22 @@ export default function LoginPage() {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>Enter your username and password to access your account.</CardDescription>
+          <CardDescription>Enter your email and password to access your account.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" name="username" type="text" placeholder="user" required />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" placeholder="jsmith@example.com" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" placeholder="pass" required />
+              <Input id="password" name="password" type="password" required />
             </div>
             <Button type="submit" className="w-full">Sign in</Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Don't have an account? <a href="#" className="underline">Sign up</a>
+            Don't have an account? <Link href="/signup" className="underline">Sign up</Link>
           </div>
         </CardContent>
       </Card>

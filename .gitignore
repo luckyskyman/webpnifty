@@ -31,3 +31,4 @@
 /docs/build*.txt
 /error/*.jpg
 /error/*.png
+/src/generated/prisma
