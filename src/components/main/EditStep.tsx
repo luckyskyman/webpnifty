@@ -92,7 +92,7 @@ export const EditStep = () => {
           </CardHeader>
           <CardContent className="space-y-2">
             {files.map(file => (
-              <div key={file.id} className="text-sm p-2 border rounded-md">{file.originalFile.name}</div>
+              <div key={file.id} className="text-sm p-2 border rounded-md truncate" title={file.originalFile.name}>{file.originalFile.name}</div>
             ))}
           </CardContent>
         </Card>

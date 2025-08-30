@@ -83,8 +83,8 @@ export const ResultStep = () => {
               <div key={fileState.id} className="flex items-center justify-between p-3 border rounded-lg">
                 <div className="flex items-center gap-3">
                   <FileImage className="w-6 h-6 text-primary" />
-                  <div>
-                    <p className="font-semibold">{fileState.convertedFile!.name}</p>
+                  <div className="min-w-0">
+                    <p className="font-semibold max-w-xs overflow-hidden text-ellipsis whitespace-nowrap" title={fileState.convertedFile!.name}>{fileState.convertedFile!.name}</p>
                     <p className="text-sm text-muted-foreground">
                       {formatBytes(originalSize)} → {formatBytes(newSize)} 
                       <span className="font-bold text-green-600 ml-2">({savedPercent}% saved)</span>
