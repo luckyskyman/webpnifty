@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, FileImage, RefreshCw, Eye } from 'lucide-react';
 import { ImageComparator } from './ImageComparator';
 
-// A utility to format bytes into a readable string
 const formatBytes = (bytes: number, decimals = 2) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1024;
@@ -58,7 +57,7 @@ export const ResultStep = () => {
     <div className="w-full max-w-4xl mx-auto space-y-6">
       <div className="text-center">
         <h2 className="text-3xl font-bold">Conversion Complete!</h2>
-        <p className="text-muted-foreground">You converted {convertedFiles.length} images.</p>
+        <p className="text-muted-foreground">Converted {convertedFiles.length} images.</p>
       </div>
 
       {imageSrcs && selectedFile && (
@@ -86,8 +85,8 @@ export const ResultStep = () => {
                   <div className="min-w-0">
                     <p className="font-semibold max-w-xs overflow-hidden text-ellipsis whitespace-nowrap" title={fileState.convertedFile!.name}>{fileState.convertedFile!.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      {formatBytes(originalSize)} → {formatBytes(newSize)} 
-                      <span className="font-bold text-green-600 ml-2">({savedPercent}% saved)</span>
+                      {formatBytes(originalSize)} → {formatBytes(newSize)}
+                      <span className="font-bold text-green-600 ml-2">Saved {savedPercent}%</span>
                     </p>
                   </div>
                 </div>
@@ -110,7 +109,7 @@ export const ResultStep = () => {
       <div className="flex justify-center gap-4">
         <Button size="lg" onClick={handleDownloadAll} disabled={convertedFiles.length === 0}>
           <Download className="mr-2" />
-          Download All (.zip)
+          Download All as ZIP
         </Button>
         <Button size="lg" variant="secondary" onClick={clearFiles}>
           <RefreshCw className="mr-2" />

@@ -31,16 +31,14 @@ export const UploadStep = () => {
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
     const messages: string[] = [];
 
-    // Handle file type rejections
     if (fileRejections.length > 0) {
       const rejectedFileNames = fileRejections.map(rejection => `'${rejection.file.name}'`).join(', ');
-      messages.push(`Invalid file type(s) ignored: ${rejectedFileNames}.`);
+      messages.push(`Invalid file type: ${rejectedFileNames}`);
     }
 
-    // Handle file limit enforcement
     let filesToProcess = acceptedFiles;
     if (acceptedFiles.length > currentLimit) {
-      messages.push(`Your limit is ${currentLimit} files. The first ${currentLimit} valid files were added.`);
+      messages.push(`You can upload up to ${currentLimit} files.`);
       filesToProcess = acceptedFiles.slice(0, currentLimit);
     }
 
@@ -75,7 +73,7 @@ export const UploadStep = () => {
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
               <span className="font-semibold">Click to upload</span> or drag and drop
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or GIF</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">JPG, PNG, GIF</p>
           </motion.div>
           <input {...getInputProps()} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
         </div>
@@ -92,17 +90,16 @@ export const UploadStep = () => {
             </div>
           )}
           <p className="text-muted-foreground">
-            You can upload up to {currentLimit} files.
+            Upload limit: {currentLimit} files.
             {!isLoggedIn && (
               <span className="font-semibold flex items-center justify-center text-primary mt-1">
                 <Star className="w-4 h-4 mr-1" />
-                <Link href="/login">Sign in</Link> for up to {USER_LIMIT} files.
+                <Link href="/login">Sign in for more</Link> for up to {USER_LIMIT} files.
               </span>
             )}
           </p>
         </div>
 
-        {/* Next Step Button */}
         <div className="mt-6 flex justify-end">
           <Button onClick={() => setStep('edit')} disabled={files.length === 0}>
             Set Conversion Options

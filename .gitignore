@@ -32,3 +32,13 @@
 /error/*.jpg
 /error/*.png
 /src/generated/prisma
+
+# Temporary files from Gemini debugging
+command.txt
+console.txt
+network.txt
+question.txt
+error/
+
+# Database files
+*.db

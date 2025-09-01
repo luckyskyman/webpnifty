@@ -42,7 +42,6 @@ export const EditStep = () => {
 
   const applyPreset = (preset: keyof typeof PRESETS) => {
     const presetOptions = PRESETS[preset];
-    // Clamp the quality to maxQuality if the preset's quality is higher
     const clampedQuality = Math.min(presetOptions.quality, maxQuality);
     setOptions({ ...presetOptions, quality: clampedQuality });
   };
@@ -50,7 +49,6 @@ export const EditStep = () => {
   const handleConvert = async () => {
     setIsConverting(true);
     try {
-      // Enforce quality limit for non-logged-in users at the time of conversion
       const finalQuality = Math.min(options.quality, maxQuality);
 
       const conversionOptions: ConversionOptions = {
@@ -71,7 +69,7 @@ export const EditStep = () => {
           })
           .catch(err => {
             const error = err as Error;
-            setFileError(fileState.id, error.message || 'An unknown error occurred');
+            setFileError(fileState.id, error.message || "An unknown error occurred.");
           });
       });
 
@@ -84,7 +82,6 @@ export const EditStep = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* Files List */}
       <div className="md:col-span-1">
         <Card>
           <CardHeader>
@@ -98,14 +95,12 @@ export const EditStep = () => {
         </Card>
       </div>
 
-      {/* Conversion Options */}
       <div className="md:col-span-2">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center"><Settings className="mr-2" /> Conversion Options</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Presets */}
             <div className="space-y-2">
               <Label>Presets</Label>
               <div className="flex gap-2">
@@ -115,11 +110,10 @@ export const EditStep = () => {
               </div>
             </div>
 
-            {/* Options */}
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <Label htmlFor="quality">Quality: {Math.round(options.quality * 100)}</Label>
+                  <Label htmlFor="quality">Quality ({Math.round(options.quality * 100)}%)</Label>
                   {!isLoggedIn && (
                     <span className="text-xs text-primary font-semibold flex items-center">
                       <Star className="w-3 h-3 mr-1" />
@@ -145,13 +139,13 @@ export const EditStep = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Switch id="exif" checked={options.keepExif} onCheckedChange={(v) => handleOptionsChange('keepExif', v)} />
-                <Label htmlFor="exif">Keep EXIF data</Label>
+                <Label htmlFor="exif">Keep EXIF Data</Label>
               </div>
             </div>
 
             <Button onClick={handleConvert} disabled={isConverting} className="w-full">
               <Zap className="mr-2 h-4 w-4" />
-              {isConverting ? `Converting... (${progress}%)` : `Convert ${files.length} image(s)`}
+              {isConverting ? `Converting... (${progress}%)` : `Convert ${files.length} Images`}
             </Button>
           </CardContent>
         </Card>
