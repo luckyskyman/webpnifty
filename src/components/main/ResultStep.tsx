@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Download, FileImage, RefreshCw, Eye } from 'lucide-react';
 import { ImageComparator } from './ImageComparator';
 
@@ -19,21 +20,23 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
 export const ResultStep = () => {
   const { files, clearFiles } = useFileStore();
-  const [selectedFile, setSelectedFile] = useState<FileState | null>(null);
+  const [fileToCompare, setFileToCompare] = useState<FileState | null>(null);
   const [imageSrcs, setImageSrcs] = useState<{ original: string, converted: string } | null>(null);
 
   useEffect(() => {
-    if (selectedFile?.convertedFile) {
-      const originalUrl = URL.createObjectURL(selectedFile.originalFile);
-      const convertedUrl = URL.createObjectURL(selectedFile.convertedFile);
+    if (fileToCompare?.convertedFile) {
+      const originalUrl = URL.createObjectURL(fileToCompare.originalFile);
+      const convertedUrl = URL.createObjectURL(fileToCompare.convertedFile);
       setImageSrcs({ original: originalUrl, converted: convertedUrl });
 
       return () => {
         URL.revokeObjectURL(originalUrl);
         URL.revokeObjectURL(convertedUrl);
       };
+    } else {
+      setImageSrcs(null);
     }
-  }, [selectedFile]);
+  }, [fileToCompare]);
 
   const handleDownloadAll = async () => {
     const zip = new JSZip();
@@ -60,13 +63,6 @@ export const ResultStep = () => {
         <p className="text-muted-foreground">Converted {convertedFiles.length} images.</p>
       </div>
 
-      {imageSrcs && selectedFile && (
-        <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-center">Compare: {selectedFile.originalFile.name}</h3>
-            <ImageComparator originalSrc={imageSrcs.original} convertedSrc={imageSrcs.converted} />
-        </div>
-      )}
-
       <Card>
         <CardHeader>
           <CardTitle>Results</CardTitle>
@@ -80,8 +76,8 @@ export const ResultStep = () => {
 
             return (
               <div key={fileState.id} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex items-center gap-3">
-                  <FileImage className="w-6 h-6 text-primary" />
+                <div className="flex items-center gap-3 min-w-0">
+                  <FileImage className="w-6 h-6 text-primary flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="font-semibold max-w-xs overflow-hidden text-ellipsis whitespace-nowrap" title={fileState.convertedFile!.name}>{fileState.convertedFile!.name}</p>
                     <p className="text-sm text-muted-foreground">
@@ -90,8 +86,8 @@ export const ResultStep = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setSelectedFile(fileState)}>
+                <div className="flex gap-2 flex-shrink-0">
+                    <Button variant="outline" size="sm" onClick={() => setFileToCompare(fileState)}>
                         <Eye className="mr-2 h-4 w-4" />
                         Compare
                     </Button>
@@ -116,6 +112,17 @@ export const ResultStep = () => {
           Convert More
         </Button>
       </div>
+
+      <Dialog open={!!fileToCompare} onOpenChange={(isOpen) => !isOpen && setFileToCompare(null)}>
+        <DialogContent className="max-w-6xl w-full">
+          <DialogHeader>
+            <DialogTitle>Compare: {fileToCompare?.originalFile.name}</DialogTitle>
+          </DialogHeader>
+          {imageSrcs && (
+            <ImageComparator originalSrc={imageSrcs.original} convertedSrc={imageSrcs.converted} />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
