@@ -29,7 +29,7 @@ export const authOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password);
 
         if (isValid) {
-          return { id: user.id, name: user.name, email: user.email };
+          return { id: user.id, name: user.name, email: user.email, role: user.role };
         } else {
           // Invalid password
           return null;
@@ -38,6 +38,7 @@ export const authOptions = {
     })
   ],
   adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/login',
@@ -48,6 +49,7 @@ export const authOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
+        token.role = user.role;
       }
       return token;
     },
@@ -56,6 +58,7 @@ export const authOptions = {
         session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.role = token.role;
       }
       return session;
     },

@@ -22,11 +22,17 @@ export const UploadStep = () => {
   const files = useFileStore(state => state.files);
   const setFiles = useFileStore(state => state.setFiles);
   const setStep = useFileStore(state => state.setStep);
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [uploadMessages, setUploadMessages] = useState<string[]>([]);
 
   const isLoggedIn = useMemo(() => status === 'authenticated', [status]);
-  const currentLimit = useMemo(() => isLoggedIn ? USER_LIMIT : GUEST_LIMIT, [isLoggedIn]);
+  
+  const currentLimit = useMemo(() => {
+    if (session?.user?.role === 'ADMIN') {
+      return Infinity;
+    }
+    return isLoggedIn ? USER_LIMIT : GUEST_LIMIT;
+  }, [isLoggedIn, session]);
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
     const messages: string[] = [];
@@ -37,9 +43,10 @@ export const UploadStep = () => {
     }
 
     let filesToProcess = acceptedFiles;
-    if (acceptedFiles.length > currentLimit) {
-      messages.push(`You can upload up to ${currentLimit} files.`);
-      filesToProcess = acceptedFiles.slice(0, currentLimit);
+    const limit = currentLimit;
+    if (acceptedFiles.length > limit) {
+      messages.push(`You can upload up to ${limit} files.`);
+      filesToProcess = acceptedFiles.slice(0, limit);
     }
 
     setUploadMessages(messages);
@@ -90,7 +97,14 @@ export const UploadStep = () => {
             </div>
           )}
           <p className="text-muted-foreground">
-            Upload limit: {currentLimit} files.
+            {session?.user?.role === 'ADMIN' ? (
+              <span className="font-semibold flex items-center justify-center text-green-500">
+                <Star className="w-4 h-4 mr-1" />
+                Admin Mode: Unlimited uploads.
+              </span>
+            ) : (
+              `Upload limit: ${currentLimit} files.`
+            )}
             {!isLoggedIn && (
               <span className="font-semibold flex items-center justify-center text-primary mt-1">
                 <Star className="w-4 h-4 mr-1" />
