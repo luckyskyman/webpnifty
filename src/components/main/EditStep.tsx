@@ -36,7 +36,7 @@ export const EditStep = () => {
 
   const [options, setOptions] = useState<Omit<ConversionOptions, 'format'> & { format: string }>(PRESETS.default);
 
-  const handleOptionsChange = (key: keyof typeof options, value: string | number | boolean) => {
+  const handleOptionsChange = (key: keyof Omit<ConversionOptions, 'format'>, value: string | number | boolean) => {
     setOptions(prev => ({ ...prev, [key]: value }));
   };
 
@@ -125,11 +125,11 @@ export const EditStep = () => {
               </div>
               <div>
                 <Label htmlFor="format" className="block mb-2">Format</Label>
-                <Select value={options.format} onValueChange={(v) => handleOptionsChange('format', v)}>
+                <Select value={options.format} onValueChange={(v) => handleOptionsChange('format', v as any)}>
                   <SelectTrigger id="format"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="image/webp">WebP</SelectItem>
-                    <SelectItem value="image/avif">AVIF</SelectItem>
+                    
                   </SelectContent>
                 </Select>
               </div>

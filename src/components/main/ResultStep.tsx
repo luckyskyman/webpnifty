@@ -5,7 +5,7 @@ import { saveAs } from 'file-saver';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Download, FileImage, RefreshCw, Eye } from 'lucide-react';
 import { ImageComparator } from './ImageComparator';
 
@@ -117,6 +117,9 @@ export const ResultStep = () => {
         <DialogContent className="max-w-6xl w-full">
           <DialogHeader>
             <DialogTitle>Compare: {fileToCompare?.originalFile.name}</DialogTitle>
+            <DialogDescription>
+              Side-by-side comparison of the original and converted image.
+            </DialogDescription>
           </DialogHeader>
           {imageSrcs && (
             <ImageComparator originalSrc={imageSrcs.original} convertedSrc={imageSrcs.converted} />

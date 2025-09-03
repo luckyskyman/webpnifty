@@ -63,6 +63,8 @@ export const UploadStep = () => {
     accept: acceptedFileTypes,
   });
 
+  const isButtonDisabled = files.length === 0;
+
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardContent className="p-6">
@@ -115,7 +117,7 @@ export const UploadStep = () => {
         </div>
 
         <div className="mt-6 flex justify-end">
-          <Button onClick={() => setStep('edit')} disabled={files.length === 0}>
+          <Button onClick={() => setStep('edit')} disabled={isButtonDisabled}>
             Set Conversion Options
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
