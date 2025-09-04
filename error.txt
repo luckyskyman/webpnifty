@@ -1,0 +1,64 @@
+[04:18:41.407] Running build in Washington, D.C., USA (East) – iad1
+[04:18:41.407] Build machine configuration: 2 cores, 8 GB
+[04:18:41.429] Cloning github.com/luckyskyman/webpnifty (Branch: main, Commit: 93cbb77)
+[04:18:41.447] Skipping build cache, deployment was triggered without cache.
+[04:18:42.338] Cloning completed: 909.000ms
+[04:18:42.661] Running "vercel build"
+[04:18:43.117] Vercel CLI 47.0.4
+[04:18:43.445] Installing dependencies...
+[04:18:43.740] npm warn config production Use `--omit=dev` instead.
+[04:19:08.415] 
+[04:19:08.415] added 484 packages in 25s
+[04:19:08.416] 
+[04:19:08.416] 154 packages are looking for funding
+[04:19:08.418]   run `npm fund` for details
+[04:19:08.460] Detected Next.js version: 15.5.2
+[04:19:08.466] Running "npm run build"
+[04:19:08.555] npm warn config production Use `--omit=dev` instead.
+[04:19:08.755] 
+[04:19:08.756] > webpnifty@0.1.0 build
+[04:19:08.756] > next build
+[04:19:08.756] 
+[04:19:09.559] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[04:19:09.560] This information is used to shape Next.js' roadmap and prioritize features.
+[04:19:09.560] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[04:19:09.561] https://nextjs.org/telemetry
+[04:19:09.561] 
+[04:19:09.613]    ▲ Next.js 15.5.2
+[04:19:09.614] 
+[04:19:09.699]    Creating an optimized production build ...
+[04:19:29.977]  ✓ Compiled successfully in 17.7s
+[04:19:29.982]    Linting and checking validity of types ...
+[04:19:34.940] 
+[04:19:34.943] Failed to compile.
+[04:19:34.944] 
+[04:19:34.944] ./src/app/api/auth/[...nextauth]/route.ts
+[04:19:34.944] 15:36  Warning: 'req' is defined but never used.  @typescript-eslint/no-unused-vars
+[04:19:34.944] 
+[04:19:34.944] ./src/app/how-to-use-webp/page.tsx
+[04:19:34.944] 22:40  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.944] 29:88  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.945] 80:72  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.945] 
+[04:19:34.945] ./src/app/login/page.tsx
+[04:19:34.945] 14:17  Warning: 'session' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[04:19:34.945] 67:16  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.945] 
+[04:19:34.945] ./src/app/signup/page.tsx
+[04:19:34.945] 40:19  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+[04:19:34.945] 
+[04:19:34.945] ./src/app/webp-vs-jpeg/page.tsx
+[04:19:34.945] 99:63  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.945] 
+[04:19:34.945] ./src/app/what-is-webp/page.tsx
+[04:19:34.945] 43:45  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[04:19:34.945] 
+[04:19:34.945] ./src/components/main/EditStep.tsx
+[04:19:34.946] 11:10  Warning: 'Switch' is defined but never used.  @typescript-eslint/no-unused-vars
+[04:19:34.946] 128:105  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+[04:19:34.946] 
+[04:19:34.946] ./src/lib/prisma.ts
+[04:19:34.947] 5:3  Warning: Unused eslint-disable directive (no problems were reported from 'no-var').
+[04:19:34.947] 
+[04:19:34.947] info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+[04:19:34.986] Error: Command "npm run build" exited with 1

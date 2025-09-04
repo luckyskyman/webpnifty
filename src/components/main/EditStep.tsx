@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FileImage, Settings, Zap, Star } from 'lucide-react';
@@ -125,7 +124,7 @@ export const EditStep = () => {
               </div>
               <div>
                 <Label htmlFor="format" className="block mb-2">Format</Label>
-                <Select value={options.format} onValueChange={(v) => handleOptionsChange('format', v as any)}>
+                <Select value={options.format} onValueChange={(v: 'image/webp') => handleOptionsChange('format', v)}>
                   <SelectTrigger id="format"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="image/webp">WebP</SelectItem>

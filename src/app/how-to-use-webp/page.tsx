@@ -14,7 +14,7 @@ export default function HowToUseWebpPage() {
       </header>
       <main className="max-w-4xl mx-auto p-4 sm:p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <article className="prose prose-lg dark:prose-invert">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">How to Use WebP Images in HTML/CSS</h1>
+                <h1 className="text-4xl font-bold">How to Use WebP: It&apos;s Easy!</h1>
           
           <p className="text-lg text-gray-600 dark:text-gray-300">
             WebP is an excellent format for optimizing web images, but integrating it into your website 

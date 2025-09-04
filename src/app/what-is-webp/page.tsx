@@ -16,11 +16,7 @@ export default function WhatIsWebpPage() {
         <article className="prose prose-lg dark:prose-invert">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">What is WebP?</h1>
           
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            WebP is a modern <strong>image format</strong> developed by Google that provides superior 
-            <strong>lossless and lossy compression</strong> for images on the web. Using WebP, 
-            webmasters and web developers can create smaller, richer images that make the web faster.
-          </p>
+                    <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">You&apos;ve probably heard of JPEG and PNG, but what exactly is it, and why should you care? Let&apos;s dive in.</p>
 
           <h2 className="text-2xl font-semibold mt-8">Key Benefits of WebP</h2>
           <ul>
