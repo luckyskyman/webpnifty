@@ -4,7 +4,6 @@ export interface ConversionOptions {
   quality: number;
   format: 'image/webp' | 'image/avif';
   maxWidthOrHeight: number;
-  keepExif: boolean;
   onProgress?: (progress: number) => void;
 }
 
@@ -25,7 +24,6 @@ export const useImageConverter = () => {
       useWebWorker: true,
       initialQuality: options.quality,
       fileType: options.format,
-      alwaysKeepExif: options.keepExif,
       onProgress: options.onProgress,
     };
 

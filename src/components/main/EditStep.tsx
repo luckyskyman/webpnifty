@@ -14,9 +14,9 @@ import { Label } from '@/components/ui/label';
 import { FileImage, Settings, Zap, Star } from 'lucide-react';
 
 const PRESETS = {
-  default: { quality: 0.8, format: 'image/webp', maxWidthOrHeight: 1920, keepExif: false },
-  max: { quality: 0.5, format: 'image/webp', maxWidthOrHeight: 1280, keepExif: false },
-  hq: { quality: 0.95, format: 'image/webp', maxWidthOrHeight: 3840, keepExif: true },
+  default: { quality: 0.8, format: 'image/webp', maxWidthOrHeight: 1920 },
+  max: { quality: 0.5, format: 'image/webp', maxWidthOrHeight: 1280 },
+  hq: { quality: 0.95, format: 'image/webp', maxWidthOrHeight: 3840 },
 };
 
 export const EditStep = () => {
@@ -136,9 +136,10 @@ export const EditStep = () => {
                 <Label htmlFor="resolution" className="block mb-2">Max Resolution</Label>
                 <Input id="resolution" type="number" value={options.maxWidthOrHeight} onChange={(e) => handleOptionsChange('maxWidthOrHeight', parseInt(e.target.value, 10))} />
               </div>
-              <div className="flex items-center space-x-2">
-                <Switch id="exif" checked={options.keepExif} onCheckedChange={(v) => handleOptionsChange('keepExif', v)} />
-                <Label htmlFor="exif">Keep EXIF Data</Label>
+              <div>
+                <p className="text-xs text-muted-foreground">
+                  Note: For your privacy, EXIF metadata is automatically removed.
+                </p>
               </div>
             </div>
 
