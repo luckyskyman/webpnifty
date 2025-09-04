@@ -129,7 +129,6 @@ export const EditStep = () => {
                   <SelectTrigger id="format"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="image/webp">WebP</SelectItem>
-                    
                   </SelectContent>
                 </Select>
               </div>

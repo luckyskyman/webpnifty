@@ -1,0 +1,30 @@
+Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+contents.js:1 initialize @ contents.ts http://localhost:3000/
+contents.js:1 showSearchLayer http://localhost:3000/
+contents.js:1 Successfully processed #nx_right_related_keywords
+contents.js:1 Element #main_pack not found
+contents.js:1 showSearchLayoutPCRight start ccfm-iframe-webpage-new
+contents.js:1 showPCRightLayout @ search-layer.ts query is null
+adsbygoogle.js?client=ca-pub-0000000000000000:225 AdSense head tag doesn't support data-nscript attribute.
+(anonymous) @ adsbygoogle.js?client=ca-pub-0000000000000000:225
+Wd @ adsbygoogle.js?client=ca-pub-0000000000000000:44
+vr @ adsbygoogle.js?client=ca-pub-0000000000000000:225
+wr @ adsbygoogle.js?client=ca-pub-0000000000000000:227
+(anonymous) @ adsbygoogle.js?client=ca-pub-0000000000000000:246
+g @ adsbygoogle.js?client=ca-pub-0000000000000000:91
+Jk @ adsbygoogle.js?client=ca-pub-0000000000000000:92
+(anonymous) @ adsbygoogle.js?client=ca-pub-0000000000000000:246
+(anonymous) @ adsbygoogle.js?client=ca-pub-0000000000000000:247
+(anonymous) @ adsbygoogle.js?client=ca-pub-0000000000000000:249Understand this warning
+script.debug.js:1 [Vercel Web Analytics] Debug mode is enabled by default in development. No requests will be sent to the server.
+script.debug.js:1 [Vercel Web Analytics] [pageview] http://localhost:3000/ {o: 'http://localhost:3000/', sv: '0.1.3', sdkn: '@vercel/analytics/react', sdkv: '1.5.0', ts: 1757008257116, …}
+hot-reloader-app.js:242 Circular dependency between chunks with runtime (_app-pages-browser_node_modules_jsquash_avif_codec_enc_avif_enc_mt_worker_mjs, webpack)
+This prevents using hashes of each other and should be avoided.
+processMessage @ hot-reloader-app.js:242
+handler @ hot-reloader-app.js:407Understand this warning
+5C:\project\webpnifty\src\hooks\useImageConverter.ts:42 Converting to AVIF using @jsquash/avif
+C:\project\webpnifty\src\hooks\useImageConverter.ts:50 AVIF Conversion Debug: {sliderQuality: 0.1, calculatedCqLevel: 57}
+C:\project\webpnifty\src\hooks\useImageConverter.ts:50 AVIF Conversion Debug: {sliderQuality: 0.1, calculatedCqLevel: 57}
+C:\project\webpnifty\src\hooks\useImageConverter.ts:50 AVIF Conversion Debug: {sliderQuality: 0.1, calculatedCqLevel: 57}
+C:\project\webpnifty\src\hooks\useImageConverter.ts:50 AVIF Conversion Debug: {sliderQuality: 0.1, calculatedCqLevel: 57}
+C:\project\webpnifty\src\hooks\useImageConverter.ts:50 AVIF Conversion Debug: {sliderQuality: 0.1, calculatedCqLevel: 57}
