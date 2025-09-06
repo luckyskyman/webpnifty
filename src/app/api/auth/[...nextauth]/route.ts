@@ -1,10 +1,12 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 import { prisma } from "@/lib/prisma";
+import { User } from "@prisma/client";
 
-const authOptions = {
+const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -22,16 +24,14 @@ const authOptions = {
         });
 
         if (!user || !user.password) {
-          // User not found or user was created via OAuth (has no password)
           return null;
         }
 
         const isValid = await bcrypt.compare(credentials.password, user.password);
 
         if (isValid) {
-          return { id: user.id, name: user.name, email: user.email, role: user.role };
+          return user;
         } else {
-          // Invalid password
           return null;
         }
       }
@@ -44,20 +44,16 @@ const authOptions = {
     signIn: '/login',
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
-        token.name = user.name;
-        token.email = user.email;
         token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (session.user) {
-        session.user.id = token.id as string;
-        session.user.name = token.name;
-        session.user.email = token.email;
+        session.user.id = token.id;
         session.user.role = token.role;
       }
       return session;
