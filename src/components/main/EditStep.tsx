@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FileImage, Settings, Zap, Star } from 'lucide-react';
 
-const PRESETS = {
+const PRESETS: Record<string, Omit<ConversionOptions, 'onProgress'>> = {
   default: { quality: 0.8, format: 'image/webp', maxWidthOrHeight: 1920 },
   max: { quality: 0.5, format: 'image/webp', maxWidthOrHeight: 1280 },
   hq: { quality: 0.95, format: 'image/webp', maxWidthOrHeight: 3840 },
