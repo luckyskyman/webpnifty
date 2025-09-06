@@ -1,4 +1,4 @@
-import imageCompression from 'browser-image-compression';
+import imageCompression, { Options } from 'browser-image-compression';
 
 export interface ConversionOptions {
   quality: number;
@@ -19,7 +19,7 @@ export const useImageConverter = () => {
       throw new Error('AVIF conversion is temporarily disabled.');
     }
 
-    const compressionOptions: imageCompression.Options = {
+    const compressionOptions: Options = {
       maxWidthOrHeight: options.maxWidthOrHeight,
       useWebWorker: true,
       initialQuality: options.quality,
