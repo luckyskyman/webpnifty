@@ -33,9 +33,9 @@ export const EditStep = () => {
     return Math.round(totalProgress / state.files.length);
   });
 
-  const [options, setOptions] = useState<Omit<ConversionOptions, 'format'> & { format: string }>(PRESETS.default);
+  const [options, setOptions] = useState<Omit<ConversionOptions, 'onProgress'>>(PRESETS.default);
 
-  const handleOptionsChange = (key: keyof Omit<ConversionOptions, 'format'>, value: string | number | boolean) => {
+  const handleOptionsChange = (key: keyof Omit<ConversionOptions, 'onProgress'>, value: string | number) => {
     setOptions(prev => ({ ...prev, [key]: value }));
   };
 
