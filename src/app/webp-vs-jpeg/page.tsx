@@ -96,7 +96,7 @@ export default function WebpVsJpegPage() {
           <p>
             For most web use cases, <strong>WebP is the superior choice</strong> due to its efficiency and versatility. 
             While JPEG still has its place, especially for legacy systems or very specific photographic needs, 
-            adopting WebP can significantly boost your website's performance and provide a better user experience.
+            adopting WebP can significantly boost your website&apos;s performance and provide a better user experience.
           </p>
 
           <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">

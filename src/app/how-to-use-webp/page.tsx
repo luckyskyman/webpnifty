@@ -19,20 +19,20 @@ export default function HowToUseWebpPage() {
           <p className="text-lg text-gray-600 dark:text-gray-300">
             WebP is an excellent format for optimizing web images, but integrating it into your website 
             requires a slightly different approach than traditional JPEG or PNG files, especially for 
-            browser compatibility. Here's how to effectively use WebP in your HTML and CSS.
+            browser compatibility. Here&apos;s how to effectively use WebP in your HTML and CSS.
           </p>
 
           <h2 className="text-2xl font-semibold mt-8">1. Using the &lt;picture&gt; Element for HTML</h2>
           <p>
             The <code>&lt;picture&gt;</code> element is the most robust way to serve WebP images. It allows 
             you to provide multiple image sources, and the browser will automatically choose the best 
-            supported format. This ensures backward compatibility for browsers that don't support WebP.
+            supported format. This ensures backward compatibility for browsers that don&apos;t support WebP.
           </p>
           <pre><code className="language-html">{
-`&lt;picture&gt;
-  &lt;source srcset="your-image.webp" type="image/webp"&gt;
-  &lt;img src="your-image.jpg" alt="Description of your image"&gt;
-&lt;/picture&gt;`
+`<picture>
+  <source srcset="your-image.webp" type="image/webp">
+  <img src="your-image.jpg" alt="Description of your image">
+</picture>`
 }</code></pre>
           <p>
             In this example, browsers that support WebP will load <code>your-image.webp</code>. 
@@ -77,7 +77,7 @@ export default function HowToUseWebpPage() {
           </p>
 
           <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-            <p className="font-semibold">Ready to optimize your website's images?</p>
+            <p className="font-semibold">Ready to optimize your website&apos;s images?</p>
             <Link href="/" className="inline-block mt-2 px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90">
               Convert Your Images to WebP Now
             </Link>

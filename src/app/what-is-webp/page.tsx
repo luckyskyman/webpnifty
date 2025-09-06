@@ -36,7 +36,7 @@ export default function WhatIsWebpPage() {
           <p>
             While modern browsers widely support WebP, many tools and applications still use older formats like JPEG and PNG. 
             <strong>WebPnifty</strong> provides a simple, fast, and free tool to convert your images into the highly optimized WebP format, 
-            helping you improve your website's loading speed and user experience.
+            helping you improve your website&apos;s loading speed and user experience.
           </p>
 
           <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
