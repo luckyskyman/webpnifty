@@ -1,10 +1,8 @@
-import NextAuth, { AuthOptions, Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import NextAuth, { AuthOptions } from "next-auth";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 import { prisma } from "@/lib/prisma";
-import { User } from "@prisma/client";
 
 const authOptions: AuthOptions = {
   providers: [
@@ -44,14 +42,14 @@ const authOptions: AuthOptions = {
     signIn: '/login',
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: User }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
         session.user.role = token.role;
